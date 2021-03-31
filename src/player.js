@@ -504,10 +504,14 @@ Namespace('Labeling').Engine = (function () {
 	// draw a stroked line (one big line, one smaller on top)
 	var _drawStrokedLine = function (x1, y1, x2, y2, color1, color2, context) {
 		if (context == null) { context = _context; }
-		// Labeling.Draw3D.drawLine3D(x1 + _offsetX, y1 + _offsetY, x2 + _offsetX, y2 + _offsetY, 6, color1);
+
 		Labeling.Draw.drawLine(context, x1 + _offsetX, y1 + _offsetY, x2 + _offsetX, y2 + _offsetY, 6, color1);
 		return Labeling.Draw.drawLine(context, x1 + _offsetX, y1 + _offsetY, x2 + _offsetX, y2 + _offsetY, 2, color2);
 	};
+
+	var _draw3DBoard = function () {
+		return Labeling.Draw3D.draw3DLine();
+	}
 
 	// render the canvas frame
 	var _drawBoard = function (mouseX, mouseY) {
@@ -564,6 +568,7 @@ Namespace('Labeling').Engine = (function () {
 					_g('ghost').className = 'term';
 
 					_drawStrokedLine(question.options.endPointX, question.options.endPointY, mouseX - _offsetX - 240, mouseY - _offsetY - 80, 'rgba(255,255,255,1)', 'rgba(0,0,0,1)');
+					_draw3DBoard();
 				}
 
 				result.push(_drawDot(question.options.endPointX + _offsetX, question.options.endPointY + _offsetY, 9, 3, _context, dotBorder, dotBackground));
